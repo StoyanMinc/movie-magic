@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getAllMovies } = require('../service/movieCreater');
+const { getAllMovies, searchMovies } = require('../service/movieCreater');
 
 router.get('/', (req, res) => {
     const movies = getAllMovies();
@@ -12,6 +12,12 @@ router.get('/about', (req, res) => {
 
 router.get('/404', (req, res) => {
     res.render('404');
+});
+
+router.get('/search', (req, res) => {
+    const { title, genre, year } = req.query
+    const movies = searchMovies(title, genre, year)
+    res.render('search', { movies, title, genre, year });
 });
 
 module.exports = router;
