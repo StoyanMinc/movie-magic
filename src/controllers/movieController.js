@@ -6,12 +6,16 @@ router.get('/movie/create', (req, res) => {
     res.render('create');
 });
 
-router.post('/movie/create', (req, res) => {
-    const movies = getAllMovies();
+router.post('/movie/create', async (req, res) => {
     const formData = req.body;
-    formData._id = movies[movies.length - 1]._id + 1;
-    createMovie(formData)
-    res.redirect('/');
+    try {
+        await createMovie(formData)
+        res.redirect('/');
+        
+    } catch (error) {
+        console.log(error.message);
+        res.redirect('/');
+    }
 });
 
 router.get('/movie/:id', (req, res) => {
