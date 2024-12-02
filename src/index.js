@@ -13,7 +13,7 @@ configExpress(app);
 
 app.use(router);
 try {
-    mongoose.connect('mongodb://localhost:27017')
+    mongoose.connect('mongodb://localhost:27017/magic-movies');
     console.log('DB connected!');
     app.listen(PORT, () => console.log(`Server is listening on port ${PORT}...`));
     
