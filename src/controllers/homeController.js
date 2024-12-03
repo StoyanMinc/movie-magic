@@ -14,9 +14,10 @@ router.get('/404', (req, res) => {
     res.render('404');
 });
 
-router.get('/search', (req, res) => {
+router.get('/search', async (req, res) => {
     const { title, genre, year } = req.query
-    const movies = searchMovies(title, genre, year)
+    const movies = await searchMovies(title, genre, year)
+    console.log(movies);
     res.render('search', { movies, title, genre, year });
 });
 

@@ -1,25 +1,24 @@
 const Movie = require('../modules/Movie');
 
-const movies = Movie.find();
 
 exports.createMovie = (movieData) => {
     return Movie.create(movieData);
 };
 
 exports.getAllMovies = () => {
-    console.log(movies);
+    const movies = Movie.find();
     return movies;
 };
 
 exports.getMovieById = (id) => {
-    const movie = movies.find(m => m._id == id);
+    const movie = Movie.findById(id);
     return movie;
 };
 
-exports.searchMovies = (title, genre, year) => {
+exports.searchMovies = async (title, genre, year) => {
 
-    let result = movies.slice();
-
+    let result = await Movie.find().lean();
+    
     if (title) {
         result = result.filter(m => m.title.toLowerCase().includes(title.toLowerCase()));
     }
