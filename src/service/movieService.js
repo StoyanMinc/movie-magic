@@ -1,4 +1,4 @@
-const Movie = require('../modules/Movie');
+const Movie = require('../models/Movie');
 
 
 exports.createMovie = (movieData) => {

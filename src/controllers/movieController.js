@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { createMovie, getAllMovies, getMovieById } = require('../service/movieService');
+const { createMovie, getMovieById } = require('../service/movieService');
 
 router.get('/movie/create', (req, res) => {
 
