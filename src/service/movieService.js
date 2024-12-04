@@ -33,3 +33,7 @@ exports.searchMovies = (title, genre, year) => {
 
     return Movie.find(query);
 };
+
+exports.attach = (movieId, castId) => {
+    return Movie.findByIdAndUpdate(movieId, {$push: {casts: castId}});
+};

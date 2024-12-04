@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { createMovie, getMovieById } = require('../service/movieService');
+const { createMovie, getMovieById, attach } = require('../service/movieService');
 const { getCasts, getCastById } = require('../service/castService');
+const { restart } = require('nodemon');
 
 router.get('/create', (req, res) => {
     res.render('create');
@@ -32,9 +33,11 @@ router.get('/:id/attach', async (req, res) => {
 
 router.post('/:id/attach', async (req, res) => {
     const castId = req.body.cast;
-    const cast = await getCastById(castId).lean();
-    console.log(cast);
-    res.redirect('/');
+    const movieId = req.params.id
+
+    await attach(movieId, castId);
+
+    res.redirect(`/movies/${movieId}/attach`);
 });
 
 module.exports = router;
