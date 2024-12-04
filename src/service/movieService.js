@@ -11,7 +11,7 @@ exports.getAllMovies = () => {
 };
 
 exports.getMovieById = (id) => {
-    const movie = Movie.findById(id);
+    const movie = Movie.findById(id).populate('casts');
     return movie;
 };
 
@@ -20,7 +20,7 @@ exports.searchMovies = (title, genre, year) => {
     let query = {};
     
     if (title) {
-        query.title = new RegExp(title, i);
+        query.title = new RegExp(title, 'i');
     }
 
     if (genre) {

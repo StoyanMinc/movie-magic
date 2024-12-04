@@ -23,7 +23,7 @@ const castSchema = mongoose.Schema({
         required: true
     },
 
-    imageUrl: {
+    castImage: {
         type: String,
         required: true,
         mactch: /^https?:\/\//
