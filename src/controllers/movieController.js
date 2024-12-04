@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { createMovie, getMovieById, attach } = require('../service/movieService');
 const { getCasts, getCastById } = require('../service/castService');
-const { restart } = require('nodemon');
 
 router.get('/create', (req, res) => {
     res.render('create');
