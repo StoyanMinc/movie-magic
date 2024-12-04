@@ -8,7 +8,8 @@ const movieSchema = mongoose.Schema({
 
     genre: {
         type: String,
-        required: true
+        required: true,
+        lowercase: true
     },
 
     director: {

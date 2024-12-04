@@ -15,21 +15,21 @@ exports.getMovieById = (id) => {
     return movie;
 };
 
-exports.searchMovies = async (title, genre, year) => {
+exports.searchMovies = (title, genre, year) => {
 
-    let result = await Movie.find().lean();
+    let query = {};
     
     if (title) {
-        result = result.filter(m => m.title.toLowerCase().includes(title.toLowerCase()));
+        query.title = new RegExp(title, i);
     }
 
     if (genre) {
-        result = result.filter(m => m.genre.toLowerCase() === genre.toLowerCase());
+        query.genre = genre.toLowerCase();
     }
 
     if (year) {
-        result = result.filter(m => m.year == year);
+        query.year = year
     }
 
-    return result;
+    return Movie.find(query);
 };
