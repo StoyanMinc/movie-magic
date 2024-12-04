@@ -35,10 +35,15 @@ router.get('/:id/attach', async (req, res) => {
 router.post('/:id/attach', async (req, res) => {
     const castId = req.body.cast;
     const movieId = req.params.id
+    
+    try {
+        await attach(movieId, castId);
+        res.redirect(`/movies/${movieId}/attach`);
+    } catch (error) {
+        console.log(error.message)
+        res.redirect(`/movies/${movieId}/attach`);
+    }
 
-    await attach(movieId, castId);
-
-    res.redirect(`/movies/${movieId}/attach`);
 });
 
 module.exports = router;
