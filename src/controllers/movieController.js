@@ -3,7 +3,7 @@ const { createMovie, getMovieById, attach } = require('../service/movieService')
 const castService = require('../service/castService');
 
 router.get('/create', (req, res) => {
-    res.render('create');
+    res.render('movies/create');
 });
 
 router.post('/create', async (req, res) => {
@@ -23,13 +23,13 @@ router.get('/:id', async (req, res) => {
     movie.stars = new Array(Number(movie.rating)).fill(true);
     console.log(movie);
     // const casts = await castService.getByIds(movie.casts).lean();
-    res.render('details', { movie });
+    res.render('movies/details', { movie });
 });
 
 router.get('/:id/attach', async (req, res) => {
     const movie = await getMovieById(req.params.id).lean();
     const casts = await castService.getCasts().lean();
-    res.render('cast-attach', { ...movie, casts });
+    res.render('cast/cast-attach', { ...movie, casts });
 });
 
 router.post('/:id/attach', async (req, res) => {

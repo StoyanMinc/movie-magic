@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { createCast } = require('../service/castService');
 
 router.get('/create', (req, res) => {
-    res.render('cast-create');
+    res.render('cast/cast-create');
 });
 
 router.post('/create', async (req, res) => {
