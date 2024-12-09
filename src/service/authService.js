@@ -1,9 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('../lib/jwt');
-const cookieParser = require('cookie-parser');
-
-
 
 const SECRET = 'aslfdm30iroq2pwaddsc214'
 exports.register = (userData) => {
@@ -31,4 +28,4 @@ exports.login = async (email, password) => {
 
     const token = await jwt.sign(paylod, SECRET, { expiresIn: '2h' });
     return token;
-}
+};

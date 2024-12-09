@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { createMovie, getMovieById, attach } = require('../service/movieService');
+const { createMovie, getMovieById, attach, editMovie } = require('../service/movieService');
 const castService = require('../service/castService');
 
 router.get('/create', (req, res) => {
@@ -21,7 +21,6 @@ router.post('/create', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const movie = await getMovieById(req.params.id).lean();
     movie.stars = new Array(Number(movie.rating)).fill(true);
-    // const casts = await castService.getByIds(movie.casts).lean();
     res.render('movies/details', { movie });
 });
 
@@ -34,7 +33,7 @@ router.get('/:id/attach', async (req, res) => {
 router.post('/:id/attach', async (req, res) => {
     const castId = req.body.cast;
     const movieId = req.params.id
-    
+
     try {
         await attach(movieId, castId);
         res.redirect(`/movies/${movieId}/attach`);
@@ -44,5 +43,19 @@ router.post('/:id/attach', async (req, res) => {
     }
 
 });
+
+router.get('/:id/edit', async (req, res) => {
+    const movie = await getMovieById(req.params.id).lean();
+    res.render('movies/edit', { ...movie });
+});
+
+router.post('/:id/edit', async (req, res) => {
+    const movieData = req.body;
+    const movieId = req.params.id;
+    await editMovie(movieId, movieData);
+
+    res.redirect(`/movies/${movieId}`);
+});
+
 
 module.exports = router;
