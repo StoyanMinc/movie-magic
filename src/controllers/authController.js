@@ -12,9 +12,9 @@ router.get('/register', (req, res) => {
 
 router.post('/register', async (req, res) => {
    const userData = req.body;
+    console.log(userData);
+    await register(userData);
 
-    await register({ userData });
-    
     res.redirect('/auth/login');
 });
 
