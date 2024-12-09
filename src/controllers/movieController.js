@@ -44,14 +44,14 @@ router.post('/:id/attach', async (req, res) => {
 
 });
 
-router.get('/:id/edit', async (req, res) => {
-    const movie = await getMovieById(req.params.id).lean();
+router.get('/:movieId/edit', async (req, res) => {
+    const movie = await getMovieById(req.params.movieId).lean();
     res.render('movies/edit', { ...movie });
 });
 
-router.post('/:id/edit', async (req, res) => {
+router.post('/:movieId/edit', async (req, res) => {
     const movieData = req.body;
-    const movieId = req.params.id;
+    const movieId = req.params.movieId;
     await editMovie(movieId, movieData);
 
     res.redirect(`/movies/${movieId}`);
