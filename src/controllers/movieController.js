@@ -25,9 +25,10 @@ router.post('/create', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
+    // const isAuthenticated = !!req.user;
     const movie = await getMovieById(req.params.id).lean();
     movie.stars = new Array(Number(movie.rating)).fill(true);
-    const isOwner = req.user._id == movie.owner;
+    const isOwner = req.user?._id == movie.owner;
     res.render('movies/details', { movie, isOwner });
 });
 
