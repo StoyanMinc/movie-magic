@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { createMovie, getMovieById, attach, editMovie } = require('../service/movieService');
+const { createMovie, getMovieById, attach, editMovie, deleteMovie } = require('../service/movieService');
 const castService = require('../service/castService');
 const { isAuth } = require('../middlewares/authMiddleware');
 
@@ -64,6 +64,11 @@ router.post('/:movieId/edit', async (req, res) => {
     await editMovie(movieId, movieData);
 
     res.redirect(`/movies/${movieId}`);
+});
+
+router.get('/:movieId/delete', isAuth, async (req, res) => {
+    await deleteMovie(req.params.movieId);
+    res.redirect('/');
 });
 
 

@@ -18,7 +18,7 @@ exports.getMovieById = (id) => {
 exports.searchMovies = (title, genre, year) => {
 
     let query = {};
-    
+
     if (title) {
         query.title = new RegExp(title, 'i');
     }
@@ -35,10 +35,14 @@ exports.searchMovies = (title, genre, year) => {
 };
 
 exports.attach = (movieId, castId) => {
-    return Movie.findByIdAndUpdate(movieId, {$push: {casts: castId}});
+    return Movie.findByIdAndUpdate(movieId, { $push: { casts: castId } });
 };
 
 
 exports.editMovie = async (movieId, movieData) => {
     return Movie.findByIdAndUpdate(movieId, movieData);
+};
+
+exports.deleteMovie = (movieId) => {
+    return Movie.findByIdAndDelete(movieId);
 }
