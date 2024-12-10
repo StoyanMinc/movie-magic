@@ -1,6 +1,5 @@
 const util = require('util');
 const jwt = require('jsonwebtoken');
-
 //* custum async function
 // function sign(paylod, secretOrPrivateKey, options = {}) {
 //     const promise = new Promise((resolve, reject) => {
