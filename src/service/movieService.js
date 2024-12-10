@@ -39,7 +39,7 @@ exports.attach = (movieId, castId) => {
 };
 
 
-exports.editMovie = async (movieId, movieData) => {
+exports.editMovie = (movieId, movieData) => {
     return Movie.findByIdAndUpdate(movieId, movieData);
 };
 
