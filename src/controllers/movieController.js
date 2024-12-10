@@ -4,14 +4,18 @@ const { createMovie, getMovieById, attach, editMovie } = require('../service/mov
 const castService = require('../service/castService');
 const { isAuth } = require('../middlewares/authMiddleware');
 
-router.get('/create', (req, res) => {
+router.get('/create', isAuth, (req, res) => {
     res.render('movies/create');
 });
 
-router.post('/create', isAuth, async (req, res) => {
-    const formData = req.body;
+router.post('/create', async (req, res) => {
+    const newMovie = {
+        ...req.body,
+        owner: req.user._id
+    };
+
     try {
-        await createMovie(formData)
+        await createMovie(newMovie)
         res.redirect('/');
 
     } catch (error) {
@@ -23,12 +27,14 @@ router.post('/create', isAuth, async (req, res) => {
 router.get('/:id', async (req, res) => {
     const movie = await getMovieById(req.params.id).lean();
     movie.stars = new Array(Number(movie.rating)).fill(true);
-    res.render('movies/details', { movie });
+    const isOwner = req.user._id == movie.owner;
+    res.render('movies/details', { movie, isOwner });
 });
 
 router.get('/:id/attach', isAuth, async (req, res) => {
     const movie = await getMovieById(req.params.id).lean();
     const casts = await castService.getCasts().lean();
+
     res.render('cast/cast-attach', { ...movie, casts });
 });
 
