@@ -7,11 +7,16 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         lowercase: true,
-        unique: true
+        unique: true,
+        minLength: 10,
+        match: /@[a-zA-Z0-9]+.[a-zA-Z0-9]+$/
+        
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        match: /^[a-zA-Z0-9]{6,}$/
+
     }
 });
 

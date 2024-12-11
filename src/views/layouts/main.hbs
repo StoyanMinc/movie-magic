@@ -9,11 +9,12 @@
 </head>
 
 <body>
-
+    {{#if error}}
     <div id="box">
         <div class="error-container">
-            <p>Error</p>
+            <p>{{error}}</p>
         </div>
+    {{/if}}
 
         <nav>
             <img src="/img/logo.webp" alt="logo">
