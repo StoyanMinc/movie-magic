@@ -8,14 +8,15 @@ const userSchema = mongoose.Schema({
         required: true,
         lowercase: true,
         unique: true,
-        minLength: 10,
-        match: /@[a-zA-Z0-9]+.[a-zA-Z0-9]+$/
-        
+        minLength: [10, 'Email is too short!'],
+        match: [/@[a-zA-Z0-9]+.[a-zA-Z0-9]+$/, 'Invalid email']
+
     },
     password: {
         type: String,
         required: true,
-        match: /^[a-zA-Z0-9]{6,}$/
+        minLength: [6, 'Password must be at least 6 characters'],
+        match: [/^[a-zA-Z0-9]$/, 'Invalid password'],
 
     }
 });
@@ -25,9 +26,9 @@ userSchema.pre('save', async function () {
 });
 
 userSchema.virtual('repass')
-    .set(function(value){
-        if(value !== this.password) {
-            throw new mongoose.MongooseError('Passwords don\'t match!');
+    .set(function (value) {
+        if (value !== this.password) {
+            throw new Error('Passwords don\'t match!');
         }
     });
 

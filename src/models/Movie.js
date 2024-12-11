@@ -4,21 +4,24 @@ const movieSchema = mongoose.Schema({
     title: {
         type: String,
         required: true,
-        match: /^[a-zA-Z0-9\s]{5,}$/
+        minLength: 5,
+        match: /^[\w\s]+$/
     },
 
     genre: {
         type: String,
         required: true,
         lowercase: true,
-        match: /^[a-zA-Z0-9\s]{5,}$/
+        minLength: 5,
+        match: /^[a-zA-Z0-9\s]+$/
 
     },
 
     director: {
         type: String,
         required: true,
-        match: /^[a-zA-Z0-9\s]{5,}$/
+        minLength: 5,
+        match: /^[a-zA-Z0-9\s]+$/
 
     },
 
@@ -45,7 +48,8 @@ const movieSchema = mongoose.Schema({
     description: {
         type: String,
         required: true,
-        match: /^[a-zA-Z0-9\s]{20,}$/
+        minLength: 20,
+        match: /^[a-zA-Z0-9\s]+$/
 
     },
 
