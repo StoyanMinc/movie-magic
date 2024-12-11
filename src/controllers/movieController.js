@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { createMovie, getMovieById, attach, editMovie, deleteMovie } = require('../service/movieService');
 const castService = require('../service/castService');
 const { isAuth } = require('../middlewares/authMiddleware');
+const getErrorMessage = require('../utils/getError');
 
 router.get('/create', isAuth, (req, res) => {
     res.render('movies/create');
@@ -19,8 +20,9 @@ router.post('/create', async (req, res) => {
         res.redirect('/');
 
     } catch (error) {
-        console.log(error.message);
-        res.redirect('/');
+        const errorMessage = getErrorMessage(error);
+        res.render('movies/create', {...newMovie, error: errorMessage});
+
     }
 });
 
